@@ -47,3 +47,11 @@ tasks
 - debug: var=ansible_git
 # prints information about the variable
 ```
+- dynamically add host facts
+    - use the `set_fact` module
+- Including Variables
+    - vars_files is used in playbooks to include a file of variables outside of the usual locations
+        - secrets, site specific data, etc. outside of version control
+    - include_vars
+        - similar to vars_files, but for roles
+        - `include_vars: "../vars/{{ansible_os_family}}.yml"`

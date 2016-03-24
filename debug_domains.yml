@@ -1,0 +1,6 @@
+---
+  - hosts: all
+
+    tasks:
+    - name: print domains
+      debug: var=domains
