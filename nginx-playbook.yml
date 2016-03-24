@@ -1,7 +1,7 @@
 # Lab 3
 ---
-- name: install nginx on centos
-  hosts: centos
+- name: install nginx
+  hosts: all
 
   tasks:
     - name: add user www-data
@@ -9,9 +9,24 @@
 
     - name: install nginx
       yum: pkg=nginx state=present
+      when: ansible_os_family == "RedHat"
+
+    - name: install nginx
+      apt: pkg=nginx state=present
+      when: ansible_os_family == "Debian"
 
     - name: ensure nginx enabled on boot
       service: name=nginx enabled=yes
 
     - name: ensure nginx running
       service: name=nginx state=started
+
+    - name: create domain directories
+      file: path=/etc/nginx/conf.d/{{ item }} state=directory
+      with_items: "{{ domains }}"
+      when: ansible_os_family == "RedHat"
+
+    - name: create domain directories
+      file: path=/etc/nginx/sites-available/{{ item }} state=directory
+      with_items: "{{ domains }}"
+      when: ansible_os_family == "Debian"
