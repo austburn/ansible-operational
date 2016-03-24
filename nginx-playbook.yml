@@ -1,9 +1,9 @@
 # Lab 3
 ---
-  - name: install nginx on centos
-    hosts: centos
+- name: install nginx on centos
+  hosts: centos
 
-    tasks:
+  tasks:
     - name: add user www-data
       user: name=www-data state=present
 
