@@ -1,0 +1,18 @@
+inventory.txt
+-------------
+[ubuntu]
+ansible1 ansible_user=root ansible_host=162.209.127.124
+ansible2 ansible_user=root ansible_host=162.209.100.161
+
+[centos]
+ansible5 ansible_user=root ansible_host=104.239.233.222
+ansible6 ansible_user=root ansible_host=146.20.37.198
+
+hosts-playbook.yaml
+-------------------
+---
+- hosts: all
+
+command
+-------
+ansible-playbook --become-user=root -i inventory.txt hosts-playbook.yaml

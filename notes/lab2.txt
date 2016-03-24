@@ -1,0 +1,78 @@
+1. CentOs Server
+2. Create user www-data
+3. install nginx
+4. nginx start at boot
+5. ensure nginx is running
+6. manually verify
+
+
+austin ~/learning/ansible-operational > ansible centos -m user -a "name=www-data state=present"
+ansible6 | SUCCESS => {
+    "changed": true,
+    "comment": "",
+    "createhome": true,
+    "group": 1001,
+    "home": "/home/www-data",
+    "name": "www-data",
+    "shell": "/bin/bash",
+    "state": "present",
+    "system": false,
+    "uid": 1001
+}
+ansible5 | SUCCESS => {
+    "changed": true,
+    "comment": "",
+    "createhome": true,
+    "group": 1001,
+    "home": "/home/www-data",
+    "name": "www-data",
+    "shell": "/bin/bash",
+    "state": "present",
+    "system": false,
+    "uid": 1001
+}
+
+
+austin ~/learning/ansible-operational > ansible centos -m yum -a "pkg=nginx state=present"
+ansible6 | SUCCESS => {
+    "changed": true,
+    "msg": "warning: /var/cache/yum/x86_64/7/epel/packages/nginx-1.6.3-8.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY\nImporting GPG key 0x352C64E5:\n Userid     : \"Fedora EPEL (7) <epel@fedoraproject.org>\"\n Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5\n Package    : epel-release-7-5.noarch (@epel)\n From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7\n",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: fastestmirror, langpacks\nLoading mirror speeds from cached hostfile\n * base: mirrors.advancedhosters.com\n * epel: mirror.symnds.com\n * extras: mirrors.advancedhosters.com\n * updates: mirrors.advancedhosters.com\nResolving Dependencies\n--> Running transaction check\n---> Package nginx.x86_64 1:1.6.3-8.el7 will be installed\n--> Processing Dependency: nginx-filesystem = 1:1.6.3-8.el7 for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: nginx-filesystem for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.18)(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.11)(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: gd for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: GeoIP for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libxslt.so.1()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libgd.so.2()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libexslt.so.0()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libGeoIP.so.1()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Running transaction check\n---> Package GeoIP.x86_64 0:1.5.0-9.el7 will be installed\n---> Package gd.x86_64 0:2.0.35-26.el7 will be installed\n--> Processing Dependency: libfontconfig.so.1()(64bit) for package: gd-2.0.35-26.el7.x86_64\n--> Processing Dependency: libXpm.so.4()(64bit) for package: gd-2.0.35-26.el7.x86_64\n---> Package libxslt.x86_64 0:1.1.28-5.el7 will be installed\n---> Package nginx-filesystem.noarch 1:1.6.3-8.el7 will be installed\n--> Running transaction check\n---> Package fontconfig.x86_64 0:2.10.95-7.el7 will be installed\n--> Processing Dependency: fontpackages-filesystem for package: fontconfig-2.10.95-7.el7.x86_64\n---> Package libXpm.x86_64 0:3.5.11-3.el7 will be installed\n--> Running transaction check\n---> Package fontpackages-filesystem.noarch 0:1.44-8.el7 will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package                      Arch        Version               Repository\n                                                                           Size\n================================================================================\nInstalling:\n nginx                        x86_64      1:1.6.3-8.el7         epel      508 k\nInstalling for dependencies:\n GeoIP                        x86_64      1.5.0-9.el7           base      709 k\n fontconfig                   x86_64      2.10.95-7.el7         base      228 k\n fontpackages-filesystem      noarch      1.44-8.el7            base      9.9 k\n gd                           x86_64      2.0.35-26.el7         base      146 k\n libXpm                       x86_64      3.5.11-3.el7          base       54 k\n libxslt                      x86_64      1.1.28-5.el7          base      242 k\n nginx-filesystem             noarch      1:1.6.3-8.el7         epel       15 k\n\nTransaction Summary\n================================================================================\nInstall  1 Package (+7 Dependent packages)\n\nTotal download size: 1.9 M\nInstalled size: 4.7 M\nDownloading packages:\nPublic key for nginx-1.6.3-8.el7.x86_64.rpm is not installed\n--------------------------------------------------------------------------------\nTotal                                              2.9 MB/s | 1.9 MB  00:00     \nRetrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : fontpackages-filesystem-1.44-8.el7.noarch                    1/8 \n  Installing : fontconfig-2.10.95-7.el7.x86_64                              2/8 \n  Installing : 1:nginx-filesystem-1.6.3-8.el7.noarch                        3/8 \n  Installing : libXpm-3.5.11-3.el7.x86_64                                   4/8 \n  Installing : gd-2.0.35-26.el7.x86_64                                      5/8 \n  Installing : libxslt-1.1.28-5.el7.x86_64                                  6/8 \n  Installing : GeoIP-1.5.0-9.el7.x86_64                                     7/8 \n  Installing : 1:nginx-1.6.3-8.el7.x86_64                                   8/8 \n  Verifying  : GeoIP-1.5.0-9.el7.x86_64                                     1/8 \n  Verifying  : libxslt-1.1.28-5.el7.x86_64                                  2/8 \n  Verifying  : libXpm-3.5.11-3.el7.x86_64                                   3/8 \n  Verifying  : fontconfig-2.10.95-7.el7.x86_64                              4/8 \n  Verifying  : 1:nginx-1.6.3-8.el7.x86_64                                   5/8 \n  Verifying  : 1:nginx-filesystem-1.6.3-8.el7.noarch                        6/8 \n  Verifying  : gd-2.0.35-26.el7.x86_64                                      7/8 \n  Verifying  : fontpackages-filesystem-1.44-8.el7.noarch                    8/8 \n\nInstalled:\n  nginx.x86_64 1:1.6.3-8.el7                                                    \n\nDependency Installed:\n  GeoIP.x86_64 0:1.5.0-9.el7                  fontconfig.x86_64 0:2.10.95-7.el7\n  fontpackages-filesystem.noarch 0:1.44-8.el7 gd.x86_64 0:2.0.35-26.el7        \n  libXpm.x86_64 0:3.5.11-3.el7                libxslt.x86_64 0:1.1.28-5.el7    \n  nginx-filesystem.noarch 1:1.6.3-8.el7      \n\nComplete!\n"
+    ]
+}
+ansible5 | SUCCESS => {
+    "changed": true,
+    "msg": "warning: /var/cache/yum/x86_64/7/epel/packages/nginx-1.6.3-8.el7.x86_64.rpm: Header V3 RSA/SHA256 Signature, key ID 352c64e5: NOKEY\nImporting GPG key 0x352C64E5:\n Userid     : \"Fedora EPEL (7) <epel@fedoraproject.org>\"\n Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5\n Package    : epel-release-7-5.noarch (@epel)\n From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7\n",
+    "rc": 0,
+    "results": [
+        "Loaded plugins: fastestmirror, langpacks\nLoading mirror speeds from cached hostfile\n * base: mirrors.advancedhosters.com\n * epel: mirror.symnds.com\n * extras: mirrors.advancedhosters.com\n * updates: mirrors.advancedhosters.com\nResolving Dependencies\n--> Running transaction check\n---> Package nginx.x86_64 1:1.6.3-8.el7 will be installed\n--> Processing Dependency: nginx-filesystem = 1:1.6.3-8.el7 for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: nginx-filesystem for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.18)(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.11)(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: gd for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: GeoIP for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libxslt.so.1()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libgd.so.2()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libexslt.so.0()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Processing Dependency: libGeoIP.so.1()(64bit) for package: 1:nginx-1.6.3-8.el7.x86_64\n--> Running transaction check\n---> Package GeoIP.x86_64 0:1.5.0-9.el7 will be installed\n---> Package gd.x86_64 0:2.0.35-26.el7 will be installed\n--> Processing Dependency: libfontconfig.so.1()(64bit) for package: gd-2.0.35-26.el7.x86_64\n--> Processing Dependency: libXpm.so.4()(64bit) for package: gd-2.0.35-26.el7.x86_64\n---> Package libxslt.x86_64 0:1.1.28-5.el7 will be installed\n---> Package nginx-filesystem.noarch 1:1.6.3-8.el7 will be installed\n--> Running transaction check\n---> Package fontconfig.x86_64 0:2.10.95-7.el7 will be installed\n--> Processing Dependency: fontpackages-filesystem for package: fontconfig-2.10.95-7.el7.x86_64\n---> Package libXpm.x86_64 0:3.5.11-3.el7 will be installed\n--> Running transaction check\n---> Package fontpackages-filesystem.noarch 0:1.44-8.el7 will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package                      Arch        Version               Repository\n                                                                           Size\n================================================================================\nInstalling:\n nginx                        x86_64      1:1.6.3-8.el7         epel      508 k\nInstalling for dependencies:\n GeoIP                        x86_64      1.5.0-9.el7           base      709 k\n fontconfig                   x86_64      2.10.95-7.el7         base      228 k\n fontpackages-filesystem      noarch      1.44-8.el7            base      9.9 k\n gd                           x86_64      2.0.35-26.el7         base      146 k\n libXpm                       x86_64      3.5.11-3.el7          base       54 k\n libxslt                      x86_64      1.1.28-5.el7          base      242 k\n nginx-filesystem             noarch      1:1.6.3-8.el7         epel       15 k\n\nTransaction Summary\n================================================================================\nInstall  1 Package (+7 Dependent packages)\n\nTotal download size: 1.9 M\nInstalled size: 4.7 M\nDownloading packages:\nPublic key for nginx-1.6.3-8.el7.x86_64.rpm is not installed\n--------------------------------------------------------------------------------\nTotal                                              2.3 MB/s | 1.9 MB  00:00     \nRetrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : fontpackages-filesystem-1.44-8.el7.noarch                    1/8 \n  Installing : fontconfig-2.10.95-7.el7.x86_64                              2/8 \n  Installing : 1:nginx-filesystem-1.6.3-8.el7.noarch                        3/8 \n  Installing : libXpm-3.5.11-3.el7.x86_64                                   4/8 \n  Installing : gd-2.0.35-26.el7.x86_64                                      5/8 \n  Installing : libxslt-1.1.28-5.el7.x86_64                                  6/8 \n  Installing : GeoIP-1.5.0-9.el7.x86_64                                     7/8 \n  Installing : 1:nginx-1.6.3-8.el7.x86_64                                   8/8 \n  Verifying  : GeoIP-1.5.0-9.el7.x86_64                                     1/8 \n  Verifying  : libxslt-1.1.28-5.el7.x86_64                                  2/8 \n  Verifying  : libXpm-3.5.11-3.el7.x86_64                                   3/8 \n  Verifying  : fontconfig-2.10.95-7.el7.x86_64                              4/8 \n  Verifying  : 1:nginx-1.6.3-8.el7.x86_64                                   5/8 \n  Verifying  : 1:nginx-filesystem-1.6.3-8.el7.noarch                        6/8 \n  Verifying  : gd-2.0.35-26.el7.x86_64                                      7/8 \n  Verifying  : fontpackages-filesystem-1.44-8.el7.noarch                    8/8 \n\nInstalled:\n  nginx.x86_64 1:1.6.3-8.el7                                                    \n\nDependency Installed:\n  GeoIP.x86_64 0:1.5.0-9.el7                  fontconfig.x86_64 0:2.10.95-7.el7\n  fontpackages-filesystem.noarch 0:1.44-8.el7 gd.x86_64 0:2.0.35-26.el7        \n  libXpm.x86_64 0:3.5.11-3.el7                libxslt.x86_64 0:1.1.28-5.el7    \n  nginx-filesystem.noarch 1:1.6.3-8.el7      \n\nComplete!\n"
+    ]
+}
+
+
+austin ~/learning/ansible-operational > ansible centos -m service -a "name=nginx enabled=yes"
+ansible5 | SUCCESS => {
+    "changed": true,
+    "enabled": true,
+    "name": "nginx"
+}
+ansible6 | SUCCESS => {
+    "changed": true,
+    "enabled": true,
+    "name": "nginx"
+}
+
+
+austin ~/learning/ansible-operational > ansible centos -m service -a "name=nginx state=started"
+ansible6 | SUCCESS => {
+    "changed": true,
+    "name": "nginx",
+    "state": "started"
+}
+ansible5 | SUCCESS => {
+    "changed": true,
+    "name": "nginx",
+    "state": "started"
+}

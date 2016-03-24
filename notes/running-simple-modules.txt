@@ -1,0 +1,41 @@
+austin ~/learning/ansible-operational > ansible -m ping all
+ansible1 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+ansible2 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+ansible5 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+ansible6 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+austin ~/learning/ansible-operational > ansible -m ping ubuntu
+ansible1 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+ansible2 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+
+
+austin ~/learning/ansible-operational > ansible all -m shell -a "uptime"
+ansible1 | SUCCESS | rc=0 >>
+ 14:29:41 up 17:21,  1 user,  load average: 0.08, 0.03, 0.05
+
+ansible2 | SUCCESS | rc=0 >>
+ 14:29:41 up 17:21,  1 user,  load average: 0.00, 0.01, 0.05
+
+ansible6 | SUCCESS | rc=0 >>
+ 14:29:41 up 40 min,  1 user,  load average: 0.12, 0.04, 0.05
+
+ansible5 | SUCCESS | rc=0 >>
+ 14:29:41 up 40 min,  1 user,  load average: 0.00, 0.01, 0.05
+
