@@ -4,3 +4,6 @@
   tasks:
     - name: print domains
       debug: var=domains
+
+    - name: print domains
+      debug: msg="{% for d in domains %}{{ d.upper() }},{% endfor %}"
