@@ -43,3 +43,14 @@ Conditionals
   tasks:
     - # only affect CentOS hosts
 ```
+
+
+Status Control
+--------------
+- `failed_when`
+- `changed_when`
+
+Local Action
+------------
+- `local_action` - perform task on local machine
+- `connection: local` - perform this play locally

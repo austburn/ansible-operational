@@ -30,3 +30,7 @@
       file: path=/etc/nginx/sites-available/{{ item }} state=directory
       with_items: "{{ domains }}"
       when: ansible_os_family == "Debian"
+
+    - name: add nginx conf
+      template: src=templates/nginx.j2 dest=/etc/nginx/conf.d/{{ item }}.conf
+      with_items: "{{ domains }}"

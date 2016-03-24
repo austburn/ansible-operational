@@ -1,0 +1,13 @@
+server {
+    listen 80;
+    server_name {{ item }};
+    access_log /var/log/{{ item }}-access.log;
+    error_log /var/log/{{ item }}-error.log;
+    location / {
+        {% if ansible_os_family == "RedHat" %}
+        root /etc/nginx/conf.d/{{ item }}/;
+        {% elif ansible_os_family == "Debian" %}
+        root /etc/nginx/sites-available/{{ item }}/;
+        {% endif %}
+    }
+}
